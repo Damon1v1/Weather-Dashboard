@@ -1,12 +1,3 @@
-// API KEY
-// 082d012876efb2cdfc83f4d294eb4ef4
-// var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=imperial&appid=082d012876efb2cdfc83f4d294eb4ef4"
-/*$.ajax({
-    url: queryURL,
-    method: "GET"})
-    .then(function(response) { 
-    console.log(response)})*/
-
 $(document).ready(function() {
     $("#search-button").on("click", function() {
       var searchValue = $("#search-value").val();
@@ -32,7 +23,6 @@ function searchWeather(searchValue){
   $.ajax({
     url:  "http://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=imperial&appid=082d012876efb2cdfc83f4d294eb4ef4",
     method: "GET"}).then(function(response){
-      console.log(response);
       
       if (history.indexOf(searchValue) === -1) {
         history.push(searchValue);
@@ -63,11 +53,13 @@ function searchWeather(searchValue){
       var cityP3 = $("<p>").addClass("card-text").text("Wind speed: " + response.wind.speed + " MPH");
       
 
+      // appending all weather elements to the card div
       cityHead.append(cityImg);
       cardBody.append(cityHead, cityP1, cityP2, cityP3);
       card.append(cardBody);
       $("#today").append(card); 
 
+      // run aditional api calls and their functions
       getForecast(searchValue);
       searchUV(response.coord.lat, response.coord.lon);
     })}
@@ -77,11 +69,10 @@ function getForecast(searchValue) {
   $.ajax({
     url:  "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=082d012876efb2cdfc83f4d294eb4ef4",
     method: "GET"}).then(function(response){
-      console.log(response);
       // overwrite any existing content with title and empty row
       $("#forecast").html("<h4 class=\"mt-3\">5-Day Forecast:</h4>").append("<div class=\"row\">");
   
-      // loop over all forecasts (by 3-hour increments)
+      // loop over forecasts for every three hours
       for (var i = 0; i < response.list.length; i++) {
       // only look at forecasts around 3:00pm
       if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
@@ -110,7 +101,6 @@ function searchUV(lat, lon){
   $.ajax({
     url: "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=082d012876efb2cdfc83f4d294eb4ef4",
     method: "GET"}).then(function(response) { 
-      console.log(response);
       var uv = $("<p>").text("UV Index: ");
       var btn = $("<span>").addClass("btn btn-sm").text(response.value);
         
@@ -129,7 +119,7 @@ function searchUV(lat, lon){
   })
 }
 
-
+// assigns history from local storage to variable
 var history = JSON.parse(window.localStorage.getItem("history")) || [];
 
   if (history.length > 0) {
