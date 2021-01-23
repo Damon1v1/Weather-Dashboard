@@ -33,6 +33,14 @@ function searchWeather(searchValue){
     url:  "http://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=imperial&appid=082d012876efb2cdfc83f4d294eb4ef4",
     method: "GET"}).then(function(response){
       console.log(response);
+      
+      if (history.indexOf(searchValue) === -1) {
+        history.push(searchValue);
+        window.localStorage.setItem("history", JSON.stringify(history));
+  
+        makeRow(searchValue);
+      }
+
       $("#today").empty();
       //creating bootstrap elements
       var card = $("<div>").addClass("card");
@@ -58,7 +66,7 @@ function searchWeather(searchValue){
       cityHead.append(cityImg);
       cardBody.append(cityHead, cityP1, cityP2, cityP3);
       card.append(cardBody);
-      $("#today").append(card);
+      $("#today").append(card); 
 
       getForecast(searchValue);
       searchUV(response.coord.lat, response.coord.lon);
