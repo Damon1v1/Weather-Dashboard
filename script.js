@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 function searchWeather(searchValue){
   $.ajax({
-    url:  "http://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=imperial&appid=082d012876efb2cdfc83f4d294eb4ef4",
+    url:  "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=imperial&appid=082d012876efb2cdfc83f4d294eb4ef4",
     method: "GET"}).then(function(response){
       
       if (history.indexOf(searchValue) === -1) {
@@ -38,7 +38,7 @@ function searchWeather(searchValue){
       
 
       //assigning weather icon to dom element
-      var cityImg = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png");
+      var cityImg = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png");
 
       // assigning city name and current date to dom element
       var cityHead = $("<h3>").addClass("card-title").text(response.name + " (" + new Date().toLocaleDateString() + ")");
@@ -67,7 +67,7 @@ function searchWeather(searchValue){
 
 function getForecast(searchValue) {
   $.ajax({
-    url:  "http://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=082d012876efb2cdfc83f4d294eb4ef4",
+    url:  "https://api.openweathermap.org/data/2.5/forecast?q=" + searchValue + "&appid=082d012876efb2cdfc83f4d294eb4ef4",
     method: "GET"}).then(function(response){
       // overwrite any existing content with title and empty row
       $("#forecast").html("<h4 class=\"mt-3\">5-Day Forecast:</h4>").append("<div class=\"row\">");
@@ -83,7 +83,7 @@ function getForecast(searchValue) {
   
         var title = $("<h5>").addClass("card-title").text(new Date(response.list[i].dt_txt).toLocaleDateString());
   
-        var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
+        var img = $("<img>").attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
   
         var p1 = $("<p>").addClass("card-text").text("Temp: " + response.list[i].main.temp_max + " °F");
         var p2 = $("<p>").addClass("card-text").text("Humidity: " + response.list[i].main.humidity + "%");
@@ -99,7 +99,7 @@ function getForecast(searchValue) {
 
 function searchUV(lat, lon){
   $.ajax({
-    url: "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=082d012876efb2cdfc83f4d294eb4ef4",
+    url: "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=082d012876efb2cdfc83f4d294eb4ef4",
     method: "GET"}).then(function(response) { 
       var uv = $("<p>").text("UV Index: ");
       var btn = $("<span>").addClass("btn btn-sm").text(response.value);
