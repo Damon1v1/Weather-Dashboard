@@ -21,7 +21,7 @@ Opening the weather dashboard presents you with the last searched city firecast
 You can view the website with this [link](https://damon1v1.github.io/Weather-Dashboard/#index)
 
 ## Credits
-###Resources I used for this project
+### Resources I used for this project
 ```
 https://getbootstrap.com/docs/5.0/getting-started/introduction/
 https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use
